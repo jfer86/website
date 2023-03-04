@@ -13,8 +13,9 @@ if($_POST){
     $sentencia->bindParam(':icono',$icono);
     $sentencia->bindParam(':titulo',$titulo);
     $sentencia->bindParam(':descripcion',$descripcion);
-
     $sentencia->execute();
+    $mensaje = "Datos agregados correctamente";
+    header("Location: index.php?mensaje=$mensaje");
         
     
 }
