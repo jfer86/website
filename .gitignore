@@ -1,0 +1,27 @@
+# Ignorar archivos generados por PHP
+*.log
+*.sql
+*.sqlite
+~*.php
+*.php.swp
+
+# Ignorar los archivos de configuración
+config.php
+database.php
+
+# Ignorar los archivos de sesiones de PHP
+sessions/
+
+# Ignorar los directorios de carga de archivos
+uploads/
+assets/uploads/
+
+# Ignorar los directorios de instalación de Bootstrap
+node_modules/
+vendor/
+_config.yml
+*.min.css
+*.min.js
+
+.vscode/
+.idea/
