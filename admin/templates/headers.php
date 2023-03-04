@@ -1,3 +1,5 @@
+<?php $url_base="http://localhost:8080/website/admin/";?>
+
 <!doctype html>
 <html lang="en">
 
@@ -17,7 +19,7 @@
 <nav class="navbar navbar-expand navbar-light bg-light">
     <div class="nav navbar-nav">
         <a class="nav-item nav-link active" href="#" aria-current="page">Administrador <span class="visually-hidden">(current)</span></a>
-        <a class="nav-item nav-link" href="#">Servicios</a>
+        <a class="nav-item nav-link" href="<?php echo $url_base;?>secciones/servicios/">Servicios</a>
         <a class="nav-item nav-link" href="#">Portafolio</a>
         <a class="nav-item nav-link" href="#">Entradas</a>
         <a class="nav-item nav-link" href="#">Equipo</a>
