@@ -1,4 +1,21 @@
-<?php include("../../templates/headers.php"); ?>
+<?php
+
+include("../../bd.php");
+
+if(isset($_GET['txtID'])){
+    $txtID=(isset($_GET['txtID']))?$_GET['txtID']:"";
+    $sentencia=$conexion->prepare("DELETE FROM `tbl_servicios` WHERE `tbl_servicios`.`ID` = :ID");
+    $sentencia->bindParam(':ID',$txtID);
+    $sentencia->execute();
+}
+
+//Seleccionar registros
+$sentencia=$conexion->prepare("SELECT * FROM `tbl_servicios`");
+$sentencia->execute();
+$listaServicios=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+
+include("../../templates/headers.php"); ?>
 
 <div class="card">
     <div class="card-header">
@@ -17,13 +34,19 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php foreach($listaServicios as $registros){ ?>
                     <tr class="">
-                        <td>1</td>
-                        <td>fa-book</td>
-                        <td>Tutorias</td>
-                        <td>Servicios de tutoria</td>
-                        <td>Editar|Eliminar</td>
+                        <td><?php echo $registros['ID'];?></td>
+                        <td><?php echo $registros['icono'];?></td>
+                        <td><?php echo $registros['titulo'];?></td>
+                        <td><?php echo $registros['descripción'];?></td>
+                        <td>
+                            <a name="" id="" class="btn btn-info" href="#" role="button">Editar</a>
+                            |
+                            <a name="" id="" class="btn btn-danger" href="index.php?txtID=<?php echo $registros['ID'];?>" role="button">Eliminar</a>
+                        </td>
                     </tr>
+                <?php } ?>
                     
                 </tbody>
             </table>
