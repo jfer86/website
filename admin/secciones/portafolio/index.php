@@ -1,4 +1,12 @@
-<?php include("../../templates/headers.php"); ?>
+<?php
+include("../../bd.php");
+
+//Seleccionar registros
+$sentencia=$conexion->prepare("SELECT * FROM `tbl_portafolio`");
+$sentencia->execute();
+$listaPortafolio=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+include("../../templates/headers.php"); ?>
 
 <div class="card">
     <div class="card-header">
