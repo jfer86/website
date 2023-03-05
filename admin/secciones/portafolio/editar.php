@@ -17,6 +17,42 @@ if(isset($_GET['txtID'])){
     $url = $registro['url'];
 }
 
+if ($_POST){
+    //recepcionamos los datos del formulario
+    $txtID = (isset($_POST['txtID'])) ? $_POST['txtID'] : "";
+    $titulo = (isset($_POST['titulo'])) ? $_POST['titulo'] : "";
+    $subtitulo = (isset($_POST['subtitulo'])) ? $_POST['subtitulo'] : "";
+    $imagen = (isset($_FILES['imagen'])) ? $_FILES['imagen'] : "";
+    $descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : "";
+    $cliente = (isset($_POST['cliente'])) ? $_POST['cliente'] : "";
+    $categoria = (isset($_POST['categoria'])) ? $_POST['categoria'] : "";
+    $url = (isset($_POST['url'])) ? $_POST['url'] : "";
+
+    $sentencia = $conexion->prepare("UPDATE `tbl_portafolio`
+    SET
+    `titulo` = :titulo,
+    `subtitulo` = :subtitulo,
+    `imagen` = :imagen,
+    `descripción` = :descripcion,
+    `cliente` = :cliente,
+    `categoria` = :categoria,
+    `url` = :url
+    WHERE `tbl_portafolio`.`ID` = :ID;");
+
+    $sentencia->bindParam(':ID', $txtID);
+    $sentencia->bindParam(':titulo', $titulo);
+    $sentencia->bindParam(':subtitulo', $subtitulo);
+    $sentencia->bindParam(':imagen', $imagen);
+    $sentencia->bindParam(':descripcion', $descripcion);
+    $sentencia->bindParam(':cliente', $cliente);
+    $sentencia->bindParam(':categoria', $categoria);
+    $sentencia->bindParam(':url', $url);
+    $sentencia->bindParam(':ID', $txtID);
+    $sentencia->execute();
+    $mensaje = "Datos actualizados correctamente";
+    header("Location: index.php?mensaje=$mensaje");
+}
+
 include("../../templates/headers.php"); ?>
 
 <div class="card">
