@@ -54,9 +54,9 @@ include("../../templates/headers.php");
     </div>
 
     <div class="mb-3">
-      <label for="desscripcion" class="form-label">Descripción:</label>
+      <label for="descripcion" class="form-label">Descripción:</label>
       <input type="text"
-        class="form-control" name="desscripcion" id="desscripcion" aria-describedby="helpId" placeholder="Descripción">
+        class="form-control" name="descripcion" id="descripcion" aria-describedby="helpId" placeholder="Descripción">
     </div>
 
     <div class="mb-3">

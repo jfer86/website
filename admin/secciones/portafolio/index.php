@@ -2,9 +2,9 @@
 include("../../bd.php");
 
 //Seleccionar registros
-$sentencia=$conexion->prepare("SELECT * FROM `tbl_portafolio`");
+$sentencia = $conexion->prepare("SELECT * FROM `tbl_portafolio`");
 $sentencia->execute();
-$listaPortafolio=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+$listaPortafolio = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
 include("../../templates/headers.php"); ?>
 
@@ -20,30 +20,35 @@ include("../../templates/headers.php"); ?>
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Titulo</th>
-                        <th scope="col">Subtitulo</th>
                         <th scope="col">Imagen</th>
                         <th scope="col">Descripción</th>
-                        <th scope="col">Cliente</th>
-                        <th scope="col">Categoria</th>
-                        <th scope="col">url</th>
+                        <th scope="col">Cliente&Categorias</th>
                         <th scope="col">acciones</th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="">
-                        
-                        <td scope="col">1</td>
-                        <td scope="col">Software restaurante</td>
-                        <td scope="col">Software para su restaurante a la medida</td>
-                        <td scope="col">imagen.jpeg</td>
-                        <td scope="col">Software para su restaurante a la medida realizado con PHP</td>
-                        <td scope="col">Restaurante slayer</td>
-                        <td scope="col">Software</td>
-                        <td scope="col">http://google.com</td>
-                        <td scope="col">Editar | Eliminar</td>
-                    </tr>
+                    <?php foreach ($listaPortafolio as $registros) { ?>
+                        <tr class="">
+                            <td scope="col"><?php echo $registros['ID']; ?></td>
+                            <td scope="col">
+                                <h6><?php echo $registros['titulo']; ?></h6>
+                                <?php echo $registros['subtitulo']; ?>
+                                <br>- <?php echo $registros['url']; ?>
+                            </td>
+                            <td scope="col"><?php echo $registros['imagen']; ?></td>
+                            <td scope="col"><?php echo $registros['descripción']; ?></td>
+                            <td scope="col">
+                                -<?php echo $registros['categoria']; ?>
+                                <br>-<?php echo $registros['cliente']; ?>
 
+                            </td>
+                            <td scope="col"><a name="" id="" class="btn btn-info" href="editar.php?txtID=<?php echo $registros['ID']; ?>" role="button">Editar</a>
+                                |
+                                <a name="" id="" class="btn btn-danger" href="index.php?txtID=<?php echo $registros['ID']; ?>" role="button">Eliminar</a>
+                            </td>
+                        </tr>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>
