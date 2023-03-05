@@ -68,7 +68,7 @@ $listaServicios=$sentencia->fetchAll(PDO::FETCH_ASSOC);
                             <i class="fas <?php echo $registros["icono"];?> fa-stack-1x fa-inverse"></i>
                         </span>
                         <h4 class="my-3"><?php echo $registros["titulo"];?></h4>
-                        <p class="text-muted"><?php echo $registros["descripción"];?></p>
+                        <p class="text-muted"><?php echo $registros["descripcion"];?></p>
                     </div>
                 <?php } ?>
 

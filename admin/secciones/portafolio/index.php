@@ -37,7 +37,7 @@ include("../../templates/headers.php"); ?>
                                 <br>- <?php echo $registros['url']; ?>
                             </td>
                             <td scope="col"><?php echo $registros['imagen']; ?></td>
-                            <td scope="col"><?php echo $registros['descripción']; ?></td>
+                            <td scope="col"><?php echo $registros['descripcion']; ?></td>
                             <td scope="col">
                                 -<?php echo $registros['categoria']; ?>
                                 <br>-<?php echo $registros['cliente']; ?>

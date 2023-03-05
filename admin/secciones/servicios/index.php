@@ -38,7 +38,7 @@ include("../../templates/headers.php"); ?>
                             <td><?php echo $registros['ID']; ?></td>
                             <td><?php echo $registros['icono']; ?></td>
                             <td><?php echo $registros['titulo']; ?></td>
-                            <td><?php echo $registros['descripción']; ?></td>
+                            <td><?php echo $registros['descripcion']; ?></td>
                             <td>
                                 <a name="" id="" class="btn btn-info" href="editar.php?txtID=<?php echo $registros['ID']; ?>" role="button">Editar</a>
                                 |

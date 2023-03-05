@@ -7,7 +7,7 @@ if ($_POST) {
   $titulo = (isset($_POST['titulo'])) ? $_POST['titulo'] : "";
   $descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : "";
 
-  $sentencia = $conexion->prepare("INSERT INTO `tbl_servicios` (`ID`, `icono`, `titulo`, `descripción`)
+  $sentencia = $conexion->prepare("INSERT INTO `tbl_servicios` (`ID`, `icono`, `titulo`, `descripcion`)
     VALUES (NULL, :icono, :titulo, :descripcion);");
 
   $sentencia->bindParam(':icono', $icono);
