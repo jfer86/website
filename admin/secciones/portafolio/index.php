@@ -36,7 +36,10 @@ include("../../templates/headers.php"); ?>
                                 <?php echo $registros['subtitulo']; ?>
                                 <br>- <?php echo $registros['url']; ?>
                             </td>
-                            <td scope="col"><?php echo $registros['imagen']; ?></td>
+                            <td scope="col">
+                                <img width="50" src="../../../assets/img/portfolio/<?php echo $registros['imagen']; ?>" />
+
+                            </td>
                             <td scope="col"><?php echo $registros['descripcion']; ?></td>
                             <td scope="col">
                                 -<?php echo $registros['categoria']; ?>

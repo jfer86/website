@@ -26,7 +26,7 @@ if ($_POST) {
 
     $sentencia->bindParam(':titulo', $titulo);
     $sentencia->bindParam(':subtitulo', $subtitulo);
-    $sentencia->bindParam(':imagen', $imagen);
+    $sentencia->bindParam(':imagen', $nombre_archivo_imagen);
     $sentencia->bindParam(':descripcion', $descripcion);
     $sentencia->bindParam(':cliente', $cliente);
     $sentencia->bindParam(':categoria', $categoria);

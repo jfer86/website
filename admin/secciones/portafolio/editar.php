@@ -73,7 +73,7 @@ include("../../templates/headers.php"); ?>
 
             <div class="mb-3">
                 <label for="imagen" class="form-label">Imagen:</label>
-                <?php echo $imagen; ?>"
+                <img width="50" src="../../../assets/img/portfolio/<?php echo $imagen;?>" />
                 <input type="file" class="form-control" name="imagen" id="imagen" placeholder="Imagen" aria-describedby="fileHelpId">
             </div>
 
