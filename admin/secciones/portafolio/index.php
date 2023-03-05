@@ -32,6 +32,7 @@ include("../../templates/headers.php"); ?>
                 </thead>
                 <tbody>
                     <tr class="">
+                        
                         <td scope="col">1</td>
                         <td scope="col">Software restaurante</td>
                         <td scope="col">Software para su restaurante a la medida</td>
