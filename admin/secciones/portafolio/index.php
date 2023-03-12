@@ -3,10 +3,10 @@ include("../../bd.php");
 
 if(isset($_GET['txtID'])){
 
-    $txxID=(isset($_GET['txtID']))?$_GET['txtID']:"";
+    $txtID=(isset($_GET['txtID']))?$_GET['txtID']:"";
 
     $sentencia = $conexion->prepare("SELECT imagen FROM `tbl_portafolio` WHERE ID = :ID");
-    $sentencia->bindParam(':ID', $txxID);
+    $sentencia->bindParam(':ID', $txtID);
     $sentencia->execute();
     $registro = $sentencia->fetch(PDO::FETCH_LAZY);
 
@@ -18,7 +18,7 @@ if(isset($_GET['txtID'])){
     }
 
     $sentencia = $conexion->prepare("DELETE FROM `tbl_portafolio` WHERE ID = :ID");
-    $sentencia->bindParam(':ID', $txxID);
+    $sentencia->bindParam(':ID', $txtID);
     $sentencia->execute();
 }
 

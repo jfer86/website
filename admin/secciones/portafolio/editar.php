@@ -22,7 +22,7 @@ if ($_POST) {
     $txtID = (isset($_POST['txtID'])) ? $_POST['txtID'] : "";
     $titulo = (isset($_POST['titulo'])) ? $_POST['titulo'] : "";
     $subtitulo = (isset($_POST['subtitulo'])) ? $_POST['subtitulo'] : "";
-    $imagen = (isset($_FILES['imagen']['name'])) ? $_FILES['imagen']['name'] : "";
+
     $descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : "";
     $cliente = (isset($_POST['cliente'])) ? $_POST['cliente'] : "";
     $categoria = (isset($_POST['categoria'])) ? $_POST['categoria'] : "";
@@ -47,9 +47,37 @@ if ($_POST) {
 
     $sentencia->bindParam(':ID', $txtID);
     $sentencia->execute();
+
+    if ($_FILES['imagen']['tmp_name'] != "") {
+
+        $imagen = (isset($_FILES['imagen']['name'])) ? $_FILES['imagen']['name'] : "";
+        $fecha_imagen = new DateTime();
+        $nombre_archivo_imagen = ($imagen != "") ? $fecha_imagen->getTimestamp() . "_" . $imagen : "";
+
+        $tmp_imagen = $_FILES["imagen"]["tmp_name"];
+
+        move_uploaded_file($tmp_imagen, "../../../assets/img/portfolio/" . $nombre_archivo_imagen);
+        
+        //borrado del archivo anterior
+        $sentencia = $conexion->prepare("SELECT imagen FROM `tbl_portafolio` WHERE ID = :ID");
+        $sentencia->bindParam(':ID', $txtID);
+        $sentencia->execute();
+        $registro = $sentencia->fetch(PDO::FETCH_LAZY);
+
+        if (isset($registro["imagen"])) {
+            if(file_exists("../../../assets/img/portfolio/" . $registro["imagen"])) {
+                unlink("../../../assets/img/portfolio/" . $registro["imagen"]);
+            }
+        }
+
+        $sentencia = $conexion->prepare("UPDATE `tbl_portafolio` SET `imagen` = :imagen WHERE `ID` = :ID;");
+        $sentencia->bindParam(':imagen', $nombre_archivo_imagen);
+        $sentencia->bindParam(':ID', $txtID);
+        $sentencia->execute();
+    }
+
     $mensaje = "Datos actualizados correctamente";
     header("Location: index.php?mensaje=$mensaje");
-    
 }
 
 include("../../templates/headers.php"); ?>
@@ -60,6 +88,13 @@ include("../../templates/headers.php"); ?>
     </div>
     <div class="card-body">
         <form action="" enctype="multipart/form-data" method="post">
+
+
+            <div class="mb-3">
+                <label for="" class="form-label">ID</label>
+                <input type="text" class="form-control" name="txtID" id="txtID" value="<?php echo $txtID; ?>" aria-describedby="helpId" placeholder="">
+
+            </div>
 
             <div class="mb-3">
                 <label for="titulo" class="form-label">Titulo:</label>
@@ -73,7 +108,7 @@ include("../../templates/headers.php"); ?>
 
             <div class="mb-3">
                 <label for="imagen" class="form-label">Imagen:</label>
-                <img width="50" src="../../../assets/img/portfolio/<?php echo $imagen;?>" />
+                <img width="50" src="../../../assets/img/portfolio/<?php echo $imagen; ?>" />
                 <input type="file" class="form-control" name="imagen" id="imagen" placeholder="Imagen" aria-describedby="fileHelpId">
             </div>
 
