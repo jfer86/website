@@ -12,7 +12,7 @@ if (isset($_GET['txtID'])) {
 
     $icono = $registro['icono'];
     $titulo = $registro['titulo'];
-    $descripcion = $registro['descripción'];
+    $descripcion = $registro['descripcion'];
 }
 
 if ($_POST) {
@@ -26,7 +26,7 @@ if ($_POST) {
     SET
     `icono` = :icono,
     `titulo` = :titulo,
-    `descripción` = :descripcion
+    `descripcion` = :descripcion
     WHERE `tbl_servicios`.`ID` = :ID;");
 
     $sentencia->bindParam(':ID', $txtID);

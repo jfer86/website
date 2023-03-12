@@ -2,18 +2,17 @@
 
 include("../../bd.php");
 
-if(isset($_GET['txtID'])){
-    $txtID=(isset($_GET['txtID']))?$_GET['txtID']:"";
-    $sentencia=$conexion->prepare("DELETE FROM `tbl_servicios` WHERE `tbl_servicios`.`ID` = :ID");
-    $sentencia->bindParam(':ID',$txtID);
+if (isset($_GET['txtID'])) {
+    $txtID = (isset($_GET['txtID'])) ? $_GET['txtID'] : "";
+    $sentencia = $conexion->prepare("DELETE FROM `tbl_servicios` WHERE `tbl_servicios`.`ID` = :ID");
+    $sentencia->bindParam(':ID', $txtID);
     $sentencia->execute();
 }
 
 //Seleccionar registros
-$sentencia=$conexion->prepare("SELECT * FROM `tbl_servicios`");
+$sentencia = $conexion->prepare("SELECT * FROM `tbl_servicios`");
 $sentencia->execute();
-$listaServicios=$sentencia->fetchAll(PDO::FETCH_ASSOC);
-
+$listaServicios = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
 include("../../templates/headers.php"); ?>
 
@@ -34,26 +33,26 @@ include("../../templates/headers.php"); ?>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($listaServicios as $registros){ ?>
-                    <tr class="">
-                        <td><?php echo $registros['ID'];?></td>
-                        <td><?php echo $registros['icono'];?></td>
-                        <td><?php echo $registros['titulo'];?></td>
-                        <td><?php echo $registros['descripción'];?></td>
-                        <td>
-                            <a name="" id="" class="btn btn-info" href="editar.php?txtID=<?php echo $registros['ID'];?>" role="button">Editar</a>
-                            |
-                            <a name="" id="" class="btn btn-danger" href="index.php?txtID=<?php echo $registros['ID'];?>" role="button">Eliminar</a>
-                        </td>
-                    </tr>
-                <?php } ?>
-                    
+                    <?php foreach ($listaServicios as $registros) { ?>
+                        <tr class="">
+                            <td><?php echo $registros['ID']; ?></td>
+                            <td><?php echo $registros['icono']; ?></td>
+                            <td><?php echo $registros['titulo']; ?></td>
+                            <td><?php echo $registros['descripcion']; ?></td>
+                            <td>
+                                <a name="" id="" class="btn btn-info" href="editar.php?txtID=<?php echo $registros['ID']; ?>" role="button">Editar</a>
+                                |
+                                <a name="" id="" class="btn btn-danger" href="index.php?txtID=<?php echo $registros['ID']; ?>" role="button">Eliminar</a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+
                 </tbody>
             </table>
         </div>
-        
-       
+
+
     </div>
-    
+
 </div>
 <?php include("../../templates/footer.php"); ?>
