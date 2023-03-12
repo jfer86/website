@@ -1,6 +1,27 @@
 <?php
 include("../../bd.php");
 
+if(isset($_GET['txtID'])){
+
+    $txxID=(isset($_GET['txtID']))?$_GET['txtID']:"";
+
+    $sentencia = $conexion->prepare("SELECT imagen FROM `tbl_portafolio` WHERE ID = :ID");
+    $sentencia->bindParam(':ID', $txxID);
+    $sentencia->execute();
+    $registro = $sentencia->fetch(PDO::FETCH_LAZY);
+
+    if(isset($registro["imagen"])){
+        if(file_exists("../../../assets/img/portfolio/".$registro["imagen"])){
+            unlink("../../../assets/img/portfolio/".$registro["imagen"]);
+        }
+
+    }
+
+    $sentencia = $conexion->prepare("DELETE FROM `tbl_portafolio` WHERE ID = :ID");
+    $sentencia->bindParam(':ID', $txxID);
+    $sentencia->execute();
+}
+
 //Seleccionar registros
 $sentencia = $conexion->prepare("SELECT * FROM `tbl_portafolio`");
 $sentencia->execute();
