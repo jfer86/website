@@ -4,19 +4,15 @@ include("../../bd.php");
 if(isset($_GET['txtID'])){
 
     $txtID=(isset($_GET['txtID']))?$_GET['txtID']:"";
-
     $sentencia = $conexion->prepare("SELECT imagen FROM `tbl_portafolio` WHERE ID = :ID");
     $sentencia->bindParam(':ID', $txtID);
     $sentencia->execute();
     $registro = $sentencia->fetch(PDO::FETCH_LAZY);
-
     if(isset($registro["imagen"])){
         if(file_exists("../../../assets/img/portfolio/".$registro["imagen"])){
             unlink("../../../assets/img/portfolio/".$registro["imagen"]);
         }
-
     }
-
     $sentencia = $conexion->prepare("DELETE FROM `tbl_portafolio` WHERE ID = :ID");
     $sentencia->bindParam(':ID', $txtID);
     $sentencia->execute();
@@ -51,7 +47,7 @@ include("../../templates/headers.php"); ?>
                 <tbody>
                     <?php foreach ($listaPortafolio as $registros) { ?>
                         <tr class="">
-                            <td scope="col"><?php echo $registros['ID']; ?></td>
+                            <td scope="col"><?php echo $registros['ID'];?></td>
                             <td scope="col">
                                 <h6><?php echo $registros['titulo']; ?></h6>
                                 <?php echo $registros['subtitulo']; ?>
@@ -67,7 +63,8 @@ include("../../templates/headers.php"); ?>
                                 <br>-<?php echo $registros['cliente']; ?>
 
                             </td>
-                            <td scope="col"><a name="" id="" class="btn btn-info" href="editar.php?txtID=<?php echo $registros['ID']; ?>" role="button">Editar</a>
+                            <td scope="col">
+                                <a name="" id="" class="btn btn-info" href="editar.php?txtID=<?php echo $registros['ID']; ?>" role="button">Editar</a>
                                 |
                                 <a name="" id="" class="btn btn-danger" href="index.php?txtID=<?php echo $registros['ID']; ?>" role="button">Eliminar</a>
                             </td>
