@@ -1,5 +1,42 @@
 <?php
 include("../../bd.php");
+
+if($_POST){
+
+$imagen = (isset($_FILES['imagen']["name"])) ? $_FILES['imagen']["name"] : "";
+$nombrecompleto = (isset($_POST['nombrecompleto'])) ? $_POST['nombrecompleto'] : "";
+$puesto = (isset($_POST['puesto'])) ? $_POST['puesto'] : "";
+$twitter = (isset($_POST['twitter'])) ? $_POST['twitter'] : "";
+$facebook = (isset($_POST['facebook'])) ? $_POST['facebook'] : "";
+$linkedin = (isset($_POST['linkedin'])) ? $_POST['linkedin'] : "";
+
+//Subir imagen
+$fecha_imagen=new DateTime();
+$nombre_archivo_imagen=($imagen!="" )? $fecha_imagen->getTimestamp()."_".$imagen:"";
+$tmp_imagen=$_FILES["imagen"]["tmp_name"];
+if($tmp_imagen!=""){
+    move_uploaded_file($tmp_imagen,"../../../assets/img/team/".$nombre_archivo_imagen);
+}
+
+//Insertar registros
+$sentencia = $conexion->prepare("INSERT INTO `tbl_equipo`
+(`ID`, `imagen`, `nombrecompleto`, `puesto`, `twitter`, `facebook`, `linkedin`)
+VALUES (NULL,:imagen, :nombrecompleto, :puesto, :twitter, :facebook, :linkedin);");
+
+$sentencia->bindParam(':imagen', $nombre_archivo_imagen);
+$sentencia->bindParam(':nombrecompleto', $nombrecompleto);
+$sentencia->bindParam(':puesto', $puesto);
+$sentencia->bindParam(':twitter', $twitter);
+$sentencia->bindParam(':facebook', $facebook);
+$sentencia->bindParam(':linkedin', $linkedin);
+$sentencia->execute();
+$mensaje = "Datos agregados correctamente";
+header("Location: index.php?mensaje=$mensaje");
+
+
+
+}
+
 include("../../templates/headers.php"); ?>
 
 <div class="card">
@@ -15,7 +52,7 @@ include("../../templates/headers.php"); ?>
             </div>
 
             <div class="mb-3">
-                <label for="nombrecompleto" class="form-label">Nombre completo</label>
+                <label for="nombrecompleto" class="form-label">Nombre completo:</label>
                 <input type="text" class="form-control" name="nombrecompleto" id="nombrecompleto" aria-describedby="helpId" placeholder="Nombre completo">
             </div>
 
@@ -25,8 +62,8 @@ include("../../templates/headers.php"); ?>
             </div>
 
             <div class="mb-3">
-                <label for="Twitter" class="form-label">Twiteer:</label>
-                <input type="text" class="form-control" name="Twitter" id="Twitter" aria-describedby="helpId" placeholder="Twitter">
+                <label for="twitter" class="form-label">Twitter:</label>
+                <input type="text" class="form-control" name="twitter" id="twitter" aria-describedby="helpId" placeholder="Twitter">
             </div>
 
             <div class="mb-3">
