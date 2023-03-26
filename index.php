@@ -18,6 +18,12 @@ $sentencia = $conexion->prepare("SELECT * FROM `tbl_equipo`");
 $sentencia->execute();
 $listaEquipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
+$sentencia = $conexion->prepare("SELECT * FROM `tbl_configuraciones`");
+$sentencia->execute();
+$listaConfiguraciones = $sentencia->fetchAll(PDO::FETCH_ASSOC);
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -51,11 +57,11 @@ $listaEquipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#portfolio">Portafolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#team">Equipo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contactanos</a></li>
                 </ul>
             </div>
         </div>
@@ -63,17 +69,17 @@ $listaEquipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     <!-- Masthead-->
     <header class="masthead">
         <div class="container">
-            <div class="masthead-subheading">Welcome To Our Studio!</div>
-            <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-            <a class="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>
+            <div class="masthead-subheading"><?php echo $listaConfiguraciones[0]['valor'];?></div>
+            <div class="masthead-heading text-uppercase"><?php echo $listaConfiguraciones[1]['valor'];?></div>
+            <a class="btn btn-primary btn-xl text-uppercase" href="<?php echo $listaConfiguraciones[3]['valor'];?>"><?php echo $listaConfiguraciones[2]['valor'];?></a>
         </div>
     </header>
     <!-- Services-->
     <section class="page-section" id="services">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Services</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h2 class="section-heading text-uppercase"><?php echo $listaConfiguraciones[4]['valor'];?></h2>
+                <h3 class="section-subheading text-muted"><?php echo $listaConfiguraciones[5]['valor'];?></h3>
             </div>
             <div class="row text-center">
                 <?php foreach ($listaServicios as $registros) { ?>
@@ -98,8 +104,8 @@ $listaEquipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     <section class="page-section bg-light" id="portfolio">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Portfolio</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h2 class="section-heading text-uppercase"><?php echo $listaConfiguraciones[6]['valor'];?></h2>
+                <h3 class="section-subheading text-muted"><?php echo $listaConfiguraciones[7]['valor'];?></h3>
             </div>
             <div class="row">
                 <?php foreach ($listaPortafolio as $registros) { ?>
@@ -166,8 +172,8 @@ $listaEquipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     <section class="page-section" id="about">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">About</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h2 class="section-heading text-uppercase"><?php echo $listaConfiguraciones[8]['valor'];?></h2>
+                <h3 class="section-subheading text-muted"><?php echo $listaConfiguraciones[9]['valor'];?></h3>
             </div>
             <ul class="timeline">
                 <?php
@@ -194,11 +200,7 @@ $listaEquipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                 <li class="timeline-inverted">
                     <div class="timeline-image">
                         <h4>
-                            Se parte
-                            <br />
-                            de nuestra
-                            <br />
-                            Historia!
+                        <?php echo $listaConfiguraciones[10]['valor'];?>
                         </h4>
                     </div>
                 </li>
@@ -209,8 +211,8 @@ $listaEquipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     <section class="page-section bg-light" id="team">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h2 class="section-heading text-uppercase"><?php echo $listaConfiguraciones[11]['valor'];?></h2>
+                <h3 class="section-subheading text-muted"><?php echo $listaConfiguraciones[12]['valor'];?></h3>
             </div>
             <div class="row">
                 <?php foreach ($listaEquipo as $registros) { ?>
@@ -229,7 +231,7 @@ $listaEquipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
 
             <div class="row">
                 <div class="col-lg-8 mx-auto text-center">
-                    <p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
+                    <p class="large text-muted"><?php echo $listaConfiguraciones[13]['valor'];?></p>
                 </div>
             </div>
         </div>
@@ -257,8 +259,8 @@ $listaEquipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     <section class="page-section" id="contact">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Contact Us</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h2 class="section-heading text-uppercase"><?php echo $listaConfiguraciones[14]['valor'];?></h2>
+                <h3 class="section-subheading text-muted"><?php echo $listaConfiguraciones[15]['valor'];?></h3>
             </div>
             <!-- * * * * * * * * * * * * * * *-->
             <!-- * * SB Forms Contact Form * *-->
@@ -272,25 +274,25 @@ $listaEquipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                     <div class="col-md-6">
                         <div class="form-group">
                             <!-- Name input-->
-                            <input class="form-control" id="name" type="text" placeholder="Your Name *" data-sb-validations="required" />
+                            <input class="form-control" id="name" type="text" placeholder="Tu nombre *" data-sb-validations="required" />
                             <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
                         </div>
                         <div class="form-group">
                             <!-- Email address input-->
-                            <input class="form-control" id="email" type="email" placeholder="Your Email *" data-sb-validations="required,email" />
+                            <input class="form-control" id="email" type="email" placeholder="Tu correo *" data-sb-validations="required,email" />
                             <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
                             <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
                         </div>
                         <div class="form-group mb-md-0">
                             <!-- Phone number input-->
-                            <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" data-sb-validations="required" />
+                            <input class="form-control" id="phone" type="tel" placeholder="Tu telefono *" data-sb-validations="required" />
                             <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group form-group-textarea mb-md-0">
                             <!-- Message input-->
-                            <textarea class="form-control" id="message" placeholder="Your Message *" data-sb-validations="required"></textarea>
+                            <textarea class="form-control" id="message" placeholder="Tu mensaje *" data-sb-validations="required"></textarea>
                             <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
                         </div>
                     </div>
@@ -315,7 +317,7 @@ $listaEquipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
                     <div class="text-center text-danger mb-3">Error sending message!</div>
                 </div>
                 <!-- Submit Button-->
-                <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Send Message</button></div>
+                <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit"><?php echo $listaConfiguraciones[16]['valor'];?></button></div>
             </form>
         </div>
     </section>
@@ -323,16 +325,13 @@ $listaEquipo = $sentencia->fetchAll(PDO::FETCH_ASSOC);
     <footer class="footer py-4">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2022</div>
+                <div class="col-lg-4 text-lg-start">Copyright &copy; Your Website 2023</div>
                 <div class="col-lg-4 my-3 my-lg-0">
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="<?php echo $listaConfiguraciones[17]['valor'];?>" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="<?php echo $listaConfiguraciones[18]['valor'];?>" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-dark btn-social mx-2" href="<?php echo $listaConfiguraciones[19]['valor'];?>" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
-                <div class="col-lg-4 text-lg-end">
-                    <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
-                    <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
-                </div>
+                
             </div>
         </div>
     </footer>
