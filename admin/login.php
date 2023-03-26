@@ -1,6 +1,34 @@
-<?php include("./bd.php"); ?>
+<?php
+session_start();
+if($_POST){
+  include("./bd.php");
+ 
+  $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
+  $password = (isset($_POST['password'])) ? $_POST['password'] : '';
 
-<!doctype html>
+  //seleccionar registros
+  $sentencia=$conexion->prepare("SELECT *, count(*) as n_usuario FROM `tbl_usuarios` WHERE usuario = :usuario AND password = :password");
+  $sentencia->bindParam(':usuario', $usuario);
+  $sentencia->bindParam(':password', $password);
+  $sentencia->execute();
+
+  $listaUsuarios = $sentencia->fetch(PDO::FETCH_LAZY);
+
+  if($listaUsuarios['n_usuario'] > 0){
+   
+    $_SESSION['usuario'] = $listaUsuarios['usuario'];
+    $_SESSION['logueado'] = true;
+    header("Location: index.php");
+  }else{
+   $mensaje="Usuario o contraseña incorrectos";
+   
+}
+
+}
+
+?>
+
+<!doctype html> 
 <html lang="en">
 
 <head>
@@ -25,11 +53,28 @@
 
         </div>
         <div class="col-4">
+          <br/><br/>
+          <?php if(isset($mensaje)){ ?>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              <strong><?php echo $mensaje;?></strong>
+            </div>
+          <?php } ?>
           <div class="card">
             <div class="card-header">
               Login
             </div>
             <div class="card-body">
+
+            
+            
+            <script>
+              var alertList = document.querySelectorAll('.alert');
+              alertList.forEach(function (alert) {
+                new bootstrap.Alert(alert)
+              })
+            </script>
+            
 
               <form action="" method="post">
 
@@ -41,10 +86,10 @@
 
                 <div class="mb-3">
                   <label for="Contraseña" class="form-label">Contraseña</label>
-                  <input type="password" class="form-control" name="contrasena" id="Contraseña" aria-describedby="helpId" placeholder="Contraseña">
+                  <input type="password" class="form-control" name="password" id="password" aria-describedby="helpId" placeholder="Contraseña">
                 </div>
 
-                <a name="" id="" class="btn btn-primary" href="index.php" role="button">Entrar</a>
+                <input name="" id="" class="btn btn-primary" type="submit" value="Entrar">
               </form>
 
             </div>
