@@ -6,13 +6,9 @@ $usuario = "root";
 $contrasena = "";
 
 try {
-    $conexion = new PDO(
-        "mysql:host=$servidor;dbname=$baseDeDatos",
-        $usuario,
-        $contrasena
-    );
-    echo "Conexión exitosa";
+    $conexion = new PDO("mysql:host=$servidor;dbname=$baseDeDatos",$usuario,$contrasena);
+    
 } catch (Exception $error) {
-    echo "Error de conexión: " . $error->getMessage();
+    echo $error->getMessage();
 }
 ?>
