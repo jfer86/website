@@ -36,7 +36,7 @@ if ($_POST) {
     $sentencia->bindParam(':linkedin', $linkedin);
     $sentencia->bindParam(':ID', $txtID);
     $sentencia->execute();
-    $mensaje = "Datos agregados correctamente";
+    $mensaje = "Datos actualizados correctamente";
     header("Location: index.php?mensaje=$mensaje");
 
 
