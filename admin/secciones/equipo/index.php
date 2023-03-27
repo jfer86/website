@@ -16,6 +16,9 @@ if(isset($_GET['txtID'])){
     $sentencia = $conexion->prepare("DELETE FROM `tbl_equipo` WHERE ID = :ID");
     $sentencia->bindParam(':ID', $txtID);
     $sentencia->execute();
+    $mensaje = "Datos eliminados correctamente";
+    header("Location: index.php?mensaje=$mensaje");
+    
 }
 
 //Seleccionar registros
