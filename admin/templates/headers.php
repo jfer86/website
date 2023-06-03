@@ -1,6 +1,6 @@
 <?php
 session_start();
-$url_base = "http://localhost:8080/website/admin/";
+$url_base = "http://localhost:80/website/admin/";
 if(!isset($_SESSION['usuario'])){
   header("Location:".$url_base."login.php");
 }

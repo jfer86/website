@@ -16,27 +16,45 @@ if (isset($_GET['txtID'])) {
 }
 
 if ($_POST) {
-    //recepcionamos los datos del formulario
     $txtID = (isset($_POST['txtID'])) ? $_POST['txtID'] : "";
     $icono = (isset($_POST['icono'])) ? $_POST['icono'] : "";
     $titulo = (isset($_POST['titulo'])) ? $_POST['titulo'] : "";
     $descripcion = (isset($_POST['descripcion'])) ? $_POST['descripcion'] : "";
 
-    $sentencia = $conexion->prepare("UPDATE `tbl_servicios`
-    SET
-    `icono` = :icono,
-    `titulo` = :titulo,
-    `descripcion` = :descripcion
-    WHERE `tbl_servicios`.`ID` = :ID;");
+    // Validación de campos requeridos
+    $error_message = "";
 
-    $sentencia->bindParam(':ID', $txtID);
-    $sentencia->bindParam(':icono', $icono);
-    $sentencia->bindParam(':titulo', $titulo);
-    $sentencia->bindParam(':descripcion', $descripcion);
-    $sentencia->bindParam(':ID', $txtID);
-    $sentencia->execute();
-    $mensaje = "Datos actualizados correctamente";
-    header("Location: index.php?mensaje=$mensaje");
+    if (empty($icono)) {
+        $error_message .= "El campo 'Icono' es requerido.<br>";
+    }
+
+    if (empty($titulo)) {
+        $error_message .= "El campo 'Titulo' es requerido.<br>";
+    }
+
+    if (empty($descripcion)) {
+        $error_message .= "El campo 'Descripcion' es requerido.<br>";
+    }
+
+    if (!empty($error_message)) {
+        $mensaje = "Error: " . $error_message;
+    } else {
+        $sentencia = $conexion->prepare("UPDATE `tbl_servicios`
+        SET
+        `icono` = :icono,
+        `titulo` = :titulo,
+        `descripcion` = :descripcion
+        WHERE `tbl_servicios`.`ID` = :ID;");
+
+        $sentencia->bindParam(':ID', $txtID);
+        $sentencia->bindParam(':icono', $icono);
+        $sentencia->bindParam(':titulo', $titulo);
+        $sentencia->bindParam(':descripcion', $descripcion);
+        $sentencia->bindParam(':ID', $txtID);
+        $sentencia->execute();
+        $mensaje = "Datos actualizados correctamente";
+        header("Location: index.php?mensaje=$mensaje");
+    }
 }
 
 include("../../templates/headers.php"); ?>
@@ -46,9 +64,13 @@ include("../../templates/headers.php"); ?>
         Editar la información de los servicios
     </div>
     <div class="card-body">
+        <?php if (isset($error_message)) { ?>
+            <div class="alert alert-danger" role="alert">
+                <?php echo $error_message; ?>
+            </div>
+        <?php } ?>
 
         <form action="" enctype="multipart/form-data" method="post">
-
             <div class="mb-3">
                 <label for="txtID" class="form-label">ID:</label>
                 <input readonly value="<?php echo $txtID; ?>" type="text" class="form-control" name="txtID" id="txtID" aria-describedby="helpId" placeholder="ID">
@@ -71,13 +93,9 @@ include("../../templates/headers.php"); ?>
 
             <button type="submit" class="btn btn-success">Actualizar</button>
             <a name="" id="" class="btn btn-primary" href="index.php" role="button">Cancelar</a>
-
-
         </form>
     </div>
-    <div class="card-footer text-muted">
-
-    </div>
+    <div class="card-footer text-muted"></div>
 </div>
 
 <?php include("../../templates/footer.php"); ?>
